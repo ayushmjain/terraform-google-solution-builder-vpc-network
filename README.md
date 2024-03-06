@@ -35,8 +35,8 @@ To deploy this blueprint you must have an active billing account and billing per
 
 | Name | Description |
 |------|-------------|
+| module\_dependency | n/a |
 | network\_name | n/a |
-| private\_services\_connection\_dependency | n/a |
 | vpc\_access\_connector\_id | n/a |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

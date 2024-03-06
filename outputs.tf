@@ -22,7 +22,7 @@ output "vpc_access_connector_id" {
   value = google_vpc_access_connector.main.id
 }
 
-output "private_services_connection_dependency" {
+output "module_dependency" {
   value = {}
-  depends_on = [google_service_networking_connection.main]
+  depends_on = [google_compute_network.main, google_compute_global_address.main, google_vpc_access_connector.main, google_service_networking_connection.main]
 }

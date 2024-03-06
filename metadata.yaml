@@ -23,6 +23,7 @@ spec:
     title: VPC Network
     source:
       repo: https://github.com/ayushmjain/terraform-google-solution-builder-vpc-network.git
+      sourceType: git
     version: 0.0.1
     actuationTool:
       flavor: Terraform
@@ -57,8 +58,8 @@ spec:
         varType: string
         required: true
     outputs:
+      - name: module_dependency
       - name: network_name
-      - name: private_services_connection_dependency
       - name: vpc_access_connector_id
   requirements:
     roles:

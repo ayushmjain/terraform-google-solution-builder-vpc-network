@@ -1,0 +1,72 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-solution-builder-vpc-network
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: VPC Network
+    source:
+      repo: https://github.com/ayushmjain/terraform-google-solution-builder-vpc-network.git
+    version: 0.0.1
+    actuationTool:
+      flavor: Terraform
+      version: ">= 0.13"
+    description:
+      tagline: Google Cloud Virtual Private Cloud (VPC) provides networking functionality to Compute Engine virtual machine (VM) instances, Google Kubernetes Engine (GKE) containers, and serverless workloads.
+      detailed: This composition unit creates a VPC network in the provided GCP Project. Additionally, it also creates a private service connection for this VPC network to be able to connect to Google owned services like Cloud SQL. It also creates a VPC access connector which makes it possible to connect to this VPC network from serverless environments like Cloud Run, App Engine and Cloud Functions.
+      preDeploy: To deploy this blueprint you must have an active billing account and billing permissions.
+    icon: assets/icon.png
+    costEstimate:
+      description: Blueprint cost details
+      url: https://cloud.google.com/products/calculator/?utm_source=google&utm_medium=cpc&utm_campaign=japac-IN-all-en-dr-BKWS-all-hv-trial-EXA-dr-1605216&utm_content=text-ad-none-none-DEV_c-CRE_634320843821-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Compute_Compute%20Engine_google%20virtual%20machine_cost-KWID_43700074201065744-aud-970366092687%3Akwd-419589539210&userloc_9061993-network_g&utm_term=KW_google%20vm%20pricing%20calculator&gad_source=1&gclid=CjwKCAiAopuvBhBCEiwAm8jaMW48oZ9B3NSbDmsUQf6JyntbYNktIlJlOIYUOJvZBKMhm39vEhioORoC38gQAvD_BwE&gclsrc=aw.ds&hl=en&dl=CiQ4MGJjNzRiNy0wOTEzLTQ5MTItODI0Zi1mZDc0NDAzZGY5NzQQDhokRkRDRDdEQjMtOTE1NS00OENFLUI1NjctM0JEODg0MkY4OTU4
+  content:
+    documentation:
+      - title: VPC network
+        url: https://cloud.google.com/vpc/docs/overview
+    examples:
+      - name: simple_example
+        location: examples/simple_example
+  interfaces:
+    variables:
+      - name: network_name
+        description: VPC network name
+        varType: string
+        required: true
+      - name: project_id
+        description: GCP project ID where the VPC network is created
+        varType: string
+        required: true
+      - name: region
+        description: GCP region for creating VPC access connector that can be used by serverless services like cloud run to access this VPC network
+        varType: string
+        required: true
+    outputs:
+      - name: network_name
+      - name: private_services_connection_dependency
+      - name: vpc_access_connector_id
+  requirements:
+    roles:
+      - level: Project
+        roles:
+          - roles/compute.networkAdmin
+          - roles/servicenetworking.serviceAgent
+          - roles/vpcaccess.admin
+    services:
+      - vpcaccess.googleapis.com
+      - servicenetworking.googleapis.com

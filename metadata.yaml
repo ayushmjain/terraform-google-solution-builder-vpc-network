@@ -38,36 +38,42 @@ spec:
       url: https://cloud.google.com/products/calculator/?utm_source=google&utm_medium=cpc&utm_campaign=japac-IN-all-en-dr-BKWS-all-hv-trial-EXA-dr-1605216&utm_content=text-ad-none-none-DEV_c-CRE_634320843821-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Compute_Compute%20Engine_google%20virtual%20machine_cost-KWID_43700074201065744-aud-970366092687%3Akwd-419589539210&userloc_9061993-network_g&utm_term=KW_google%20vm%20pricing%20calculator&gad_source=1&gclid=CjwKCAiAopuvBhBCEiwAm8jaMW48oZ9B3NSbDmsUQf6JyntbYNktIlJlOIYUOJvZBKMhm39vEhioORoC38gQAvD_BwE&gclsrc=aw.ds&hl=en&dl=CiQ4MGJjNzRiNy0wOTEzLTQ5MTItODI0Zi1mZDc0NDAzZGY5NzQQDhokRkRDRDdEQjMtOTE1NS00OENFLUI1NjctM0JEODg0MkY4OTU4
   content:
     documentation:
-      - title: VPC network
-        url: https://cloud.google.com/vpc/docs/overview
+    - title: VPC network
+      url: https://cloud.google.com/vpc/docs/overview
     examples:
-      - name: simple_example
-        location: examples/simple_example
+    - name: simple_example
+      location: examples/simple_example
   interfaces:
     variables:
-      - name: network_name
-        description: VPC network name
-        varType: string
-        required: true
-      - name: project_id
-        description: GCP project ID where the VPC network is created
-        varType: string
-        required: true
-      - name: region
-        description: GCP region for creating VPC access connector that can be used by serverless services like cloud run to access this VPC network
-        varType: string
-        required: true
+    - name: network_name
+      description: VPC network name
+      varType: string
+      required: true
+      userInputVariable: true
+    - name: project_id
+      description: GCP project ID where the VPC network is created
+      varType: string
+      required: true
+      userInputVariable: true
+    - name: region
+      description: GCP region for creating VPC access connector that can be used by serverless services like cloud run to access this VPC network
+      varType: string
+      required: true
+      userInputVariable: true
     outputs:
-      - name: module_dependency
-      - name: network_name
-      - name: vpc_access_connector_id
+    - name: module_dependency
+      solutionOutputVariable: false
+    - name: network_name
+      solutionOutputVariable: false
+    - name: vpc_access_connector_id
+      solutionOutputVariable: false
   requirements:
     roles:
-      - level: Project
-        roles:
-          - roles/compute.networkAdmin
-          - roles/servicenetworking.serviceAgent
-          - roles/vpcaccess.admin
+    - level: Project
+      roles:
+      - roles/compute.networkAdmin
+      - roles/servicenetworking.serviceAgent
+      - roles/vpcaccess.admin
     services:
-      - vpcaccess.googleapis.com
-      - servicenetworking.googleapis.com
+    - vpcaccess.googleapis.com
+    - servicenetworking.googleapis.com

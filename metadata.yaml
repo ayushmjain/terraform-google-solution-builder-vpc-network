@@ -62,10 +62,13 @@ spec:
       userInputVariable: true
     outputs:
     - name: module_dependency
+      description: Dependency variable that can be used by other modules to depend on this module
       solutionOutputVariable: false
     - name: network_name
+      description: VPC network name
       solutionOutputVariable: false
     - name: vpc_access_connector_id
+      description: VPC access connector ID
       solutionOutputVariable: false
   requirements:
     roles:
